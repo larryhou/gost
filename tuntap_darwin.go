@@ -33,8 +33,16 @@ func createTun(cfg TunConfig) (conn net.Conn, itf *net.Interface, err error) {
 	if peer == "" {
 		peer = ip.String()
 	}
-	cmd := fmt.Sprintf("ifconfig %s inet %s %s mtu %d up",
-		ifce.Name(), cfg.Addr, peer, mtu)
+
+	var cmd string
+	if len(ip) == net.IPv6len {
+		cmd = fmt.Sprintf("ifconfig %s inet6 %s mtu %d up",
+			ifce.Name(), cfg.Addr, mtu)
+	} else {
+		cmd = fmt.Sprintf("ifconfig %s inet %s %s mtu %d up",
+			ifce.Name(), cfg.Addr, peer, mtu)
+	}
+
 	log.Log("[tun]", cmd)
 	args := strings.Split(cmd, " ")
 	if er := exec.Command(args[0], args[1:]...).Run(); er != nil {
