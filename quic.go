@@ -155,7 +155,7 @@ func QUICListener(addr string, config *QUICConfig) (Listener, error) {
 		HandshakeIdleTimeout: config.Timeout,
 		KeepAlivePeriod:      config.KeepAlivePeriod,
 		MaxIdleTimeout:       config.IdleTimeout,
-		Versions: []quic.VersionNumber{
+		Versions: []quic.Version{
 			quic.Version1,
 			quic.Version2,
 		},
