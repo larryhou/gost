@@ -113,7 +113,7 @@ func (tr *quicTransporter) initSession(addr net.Addr, conn net.PacketConn) (*qui
 		HandshakeIdleTimeout: config.Timeout,
 		MaxIdleTimeout:       config.IdleTimeout,
 		KeepAlivePeriod:      config.KeepAlivePeriod,
-		Versions: []quic.VersionNumber{
+		Versions: []quic.Version{
 			quic.Version1,
 			quic.Version2,
 		},
