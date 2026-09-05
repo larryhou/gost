@@ -813,3 +813,12 @@ func (c *tunTapConn) SetWriteDeadline(t time.Time) error {
 func IsIPv6Multicast(addr net.HardwareAddr) bool {
 	return addr[0] == 0x33 && addr[1] == 0x33
 }
+
+// WaterInterface returns the underlying *water.Interface from a net.Conn
+// created by TunListener. Returns nil if conn is not a tunTapConn.
+func WaterInterface(conn net.Conn) *water.Interface {
+	if c, ok := conn.(*tunTapConn); ok {
+		return c.ifce
+	}
+	return nil
+}
